@@ -1,0 +1,41 @@
+# This workflow will build a Java project with Gradle
+# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-gradle
+
+name: 构建docker镜像
+
+on:
+  # main分支的push操作会触发当前脚本的执行
+  push:
+    branches: [ main ]
+  # main分支的pr操作会触发当前脚本的执行
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    # 当前脚本是在容器中运行的，对应的镜像是ubuntu-latest
+    runs-on: ubuntu-latest
+
+    steps:
+    # 下载源码
+    - uses: actions/checkout@v2
+    - name: Login docker hub
+      env:
+        DOCKER_USERNAME: ${{secrets.DOCKER_USERNAME}}
+        DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+      # 指定login命令登录hub.docker.com，帐号和密码已经在GitHub网页中配置好了
+      run: |
+        echo "${DOCKER_PASSWORD}" | docker login --username ${DOCKER_USERNAME} --password-stdin
+    - name: Set up Docker Buildx
+      # 使用buildx来构建镜像，这个工具功能很丰富
+      uses: crazy-max/ghaction-docker-buildx@v1
+      with:
+        buildx-version: latest
+    - name: Build dockerfile (with push)
+      # 构建镜像，用buildx可以同时构建X86和ARM架构的镜像，然后推送到hub.docker.com
+      run: |
+        docker buildx build \
+        --platform=linux/amd64,linux/arm/v7,linux/arm64 \
+        --output "type=image,push=true" \
+        --file ./Dockerfile . \
+        --tag xzxwl/openjdk8:centos7
