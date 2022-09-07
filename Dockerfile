@@ -1,2 +1,6 @@
-FROM centos:7
-RUN yum install -y java-1.8.0-openjdk.x86_64
+FROM openjdk:8u342-jdk
+WORKDIR /work
+RUN curl -O https://github.com/stevespringett/nist-data-mirror/releases/download/nist-data-mirror-1.6.0/nist-data-mirror.jar \
+    && java -jar nist-data-mirror.jar
+    
+RUN ls
