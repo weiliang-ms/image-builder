@@ -38,4 +38,4 @@ jobs:
         --platform=linux/amd64 \
         --output "type=image,push=true" \
         --file ./Dockerfile . \
-        --tag xzxwl/openjdk8:centos7
+        --tag xzxwl/nvdmirror
