@@ -15,3 +15,5 @@ openpyxl
 attrdict
 paddlepaddle
 paddlehub
+torch
+torchvision
