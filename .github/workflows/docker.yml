@@ -6,10 +6,10 @@ name: 构建docker镜像
 on:
   # main分支的push操作会触发当前脚本的执行
   push:
-    branches: [ python3.7 ]
+    branches: [ ocr-cpu ]
   # main分支的pr操作会触发当前脚本的执行
   pull_request:
-    branches: [ python3.7 ]
+    branches: [ ocr-cpu ]
 
 jobs:
   build:
@@ -38,4 +38,4 @@ jobs:
         --platform=linux/amd64 \
         --output "type=image,push=true" \
         --file ./Dockerfile . \
-        --tag xzxwl/python:3.7
+        --tag xzxwl/ocr-cpu:base
