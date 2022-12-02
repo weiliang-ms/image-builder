@@ -1,3 +1,5 @@
-FROM python:3.7-alpine
+FROM python:3.7.15-slim
 WORKDIR /work
-RUN apk update && apk add --no-cache gcc make g++ python3-dev build-base freetype-dev libpng-dev openblas-dev py3-scipy
+ADD requirements.txt .
+RUN apt install gcc make g++ libglib2.0-dev libgl1-mesa-glx libsm6 libxrender1 -y \
+RUN pip install -r requirements.txt
