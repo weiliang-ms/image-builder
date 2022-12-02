@@ -6,10 +6,10 @@ name: 构建docker镜像
 on:
   # main分支的push操作会触发当前脚本的执行
   push:
-    branches: [ main ]
+    branches: [ python3.7 ]
   # main分支的pr操作会触发当前脚本的执行
   pull_request:
-    branches: [ main ]
+    branches: [ python3.7 ]
 
 jobs:
   build:
@@ -38,4 +38,4 @@ jobs:
         --platform=linux/amd64 \
         --output "type=image,push=true" \
         --file ./Dockerfile . \
-        --tag xzxwl/nvdmirror
+        --tag xzxwl/python3.7
