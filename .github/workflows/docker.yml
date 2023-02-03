@@ -4,12 +4,12 @@
 name: 构建docker镜像
 
 on:
-  # main分支的push操作会触发当前脚本的执行
+  # 分支的push操作会触发当前脚本的执行
   push:
-    branches: [ ocr-cpu ]
-  # main分支的pr操作会触发当前脚本的执行
+    branches: [ node-newman ]
+  # 分支的pr操作会触发当前脚本的执行
   pull_request:
-    branches: [ ocr-cpu ]
+    branches: [ node-newman ]
 
 jobs:
   build:
@@ -38,4 +38,4 @@ jobs:
         --platform=linux/amd64 \
         --output "type=image,push=true" \
         --file ./Dockerfile . \
-        --tag xzxwl/ocr-cpu:base
+        --tag xzxwl/node:14-newman
